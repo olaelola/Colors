@@ -1,33 +1,26 @@
 <?php
+//incluir o arquivo de conexao com o bd
+ include_once("conexao.php");
 
-include_once("conexao.php");
+//receber os dados do formulário
+  $nome = $_POST["nomeUser"];
+  $sobrenome = $_POST["sobrenomeUser"];
+  $email = $_POST["emailUser"];
+  $senha = $_POST["senhaUser"];
+  $telefone = $_POST["telUser"];
+  $nascimento = $_POST["nascimentoUser"];
+  $gen = $_POST["generoUser"];
 
-$nome = $_POST["nomeUser"];
-$sobrenome = $_POST["sobrenomeUser"];
-$tel = $_POST["telUser"];
-$nasc = $_POST["nascimentoUserr"];
-$gen = $_POST["generoUser"];
-$senha = $_POST["senhaUser"];
+  //echo $nome;
 
-$sql = "INSERT INTO user(Nome, Sobrenome, Telefone, Genero, Nasc, Email, Senha, id)
-VALUES('$nome', '$sobrenome', '$tel', '$nasc', '$gen', '$senha')";
+//inserir os dados no banco de dados
+  $sql = "INSERT INTO usuario (nomeUser, sobrenomeUser, emailUser, senhaUser, telUser, nascimentoUser, generoUser) VALUES ('$nome', '$sobrenome', '$email', '$senha', '$telefone', '$nascimento', '$gen')";
 
-if ($conn->query($sql) === TRUE) {
-    ?>
-    <script>
-        alert("Cadastro concluido");
-        window.location = "cadastro.php";
-    </script>
+  if($conn->query($sql) === TRUE){
+    echo "Dados inseridos com sucesso!";
+  } else {
+    echo "Erro ao inserir dados: " . $conn->error;
+  }
 
-    <?php
-}
-else{
-?>
-<script>
-    alert("erro");
-    window.history.back();
-    </script>
-    <?php
-}
-
-?>
+  $conn->close();
+  ?>
